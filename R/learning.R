@@ -128,12 +128,40 @@ nhanes_small %>%
     filter(bmi >= 20 & bmi <= 40 & diabetes == "Yes")
 
 # Pipe the data into mutate function and:
-nhanes_modified <- nhanes_small %>% # Specifying dataset
-    mutate(
-        # 2. Calculate mean arterial pressure
-        mean_aterial_bloodpresure = ((2*bp_dia_ave)+bp_sys_ave)/3,
-        # 3. Create young_child variable using a condition
-        young_child = if_else(age<6, "Yes", "No")
-    )
+nhanes_modified <- nhanes_small %>%
+    mutate(mean_aterial_bloodpresure = ((2*bp_dia_ave)+bp_sys_ave)/3,
+           young_child = if_else(age<6, "Yes", "No"))
 
-nhanes_modified
+
+# Calculating summary statistic -------------------------------------------
+
+result <- nhanes_small %>%
+    summarise(max_bmi=max(bmi, na.rm=T),
+              min_bmi=min(bmi, na.rm=T))
+
+
+# Calculating summary statistics by a group -------------------------------
+
+nhanes_small %>%
+    group_by(diabetes) %>%
+    summarise(mean_age=mean(age, na.rm=T),
+              mean_bmi=mean(bmi, na.rm=T))
+
+
+nhanes_small %>%
+    filter(!is.na(diabetes)) %>%
+    group_by(diabetes)%>%
+    summarise(mean_age=mean(age, na.rm=T),
+              mean_bmi=mean(bmi, na.rm=T))
+
+nhanes_small %>%
+    filter(!is.na(diabetes)) %>%
+    group_by(diabetes, phys_active)%>%
+    summarise(mean_age=mean(age, na.rm=T),
+              mean_bmi=mean(bmi, na.rm=T)) %>%
+    ungroup()
+
+
+# Saving dataset as files -------------------------------------------------
+
+readr::write_csv(NHANES_small, here::here("data/NHANES_small.csv"))

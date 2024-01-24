@@ -1,0 +1,39 @@
+---
+title: "Reproducible documents"
+author: "Christine Ljungberg"
+format: html
+editor: visual
+---
+
+```{r setup}
+#|message: false
+#|warning: false
+library(tidyverse)
+library(NHANES)
+nhanes_small <- read_csv(here::here("data/NHANES_small.CSV"))
+```
+
+
+```{r}
+nhanes_small <- select(nhanes_small, age, sex, bmi, diabetes, phys_active, bp_sys_ave, bp_dia_ave, education)
+nhanes_small
+```
+
+
+
+```{r}
+2+2
+```
+# Table of results 
+
+```{r}
+nhanes_small %>% 
+    filter(!is.na(diabetes)) %>%
+    group_by(diabetes, education) %>%
+    summarise(mean_age=mean(age, na.rm=T),
+              mean_bmi=mean(bmi, na.rm=T))%>%
+    ungroup() %>%
+    knitr::kable(caption="Mean values of age and BMI for each diabetes status and education level")
+              
+```
+
