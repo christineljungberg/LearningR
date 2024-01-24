@@ -36,6 +36,10 @@ nhanes_small %>%
   select(phys_active) %>%
   rename(physically_active = phys_active)
 
+
+# Exercise 7.8 ------------------------------------------------------------
+
+
 nhanes_small %>%
   select(bp_sys_ave, education)
 
