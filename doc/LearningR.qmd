@@ -10,7 +10,9 @@ editor: visual
 
 # Intro 
 Writre one **random** *sentence*. 
+
 # Methods and Results 
+
 ## Analysis 
 ```{r}
 2+2
