@@ -4,6 +4,20 @@ author: "Christine Ljungberg"
 format: html
 editor: visual
 ---
+- Christine Ljungberg 
+- Aauhus University
+- Department of Clinical Epidemiology 
+
+# Intro 
+Writre one **random** *sentence*. 
+# Methods and Results 
+## Analysis 
+```{r}
+2+2
+```
+
+# Discussion 
+
 
 ```{r setup}
 #|message: false
